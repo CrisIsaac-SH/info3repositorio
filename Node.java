@@ -1,11 +1,12 @@
-public class Node{
+public class Node {
     private static int nodesCount = 0;
     private int id;
     boolean isExit;
     int xIndex, yIndex, zIndex;
     boolean north, east, south, west, up, down, danger;
+    boolean visited;
 
-    public Node(String connections, int xIndex, int yIndex, int zIndex){
+    public Node(String connections, int xIndex, int yIndex, int zIndex) {
         this.north = connections.charAt(0) == 'O';
         this.west = connections.charAt(1) == 'O';
         this.south = connections.charAt(2) == 'O';
@@ -19,16 +20,17 @@ public class Node{
         this.zIndex = zIndex;
 
         this.isExit = false;
+        this.visited = false;
 
         this.id = nodesCount;
         nodesCount += 1;
     }
 
-    public static void resetNodesCount(){
+    public static void resetNodesCount() {
         nodesCount = 0;
     }
 
-    public int getId(){
+    public int getId() {
         return this.id;
     }
 }
