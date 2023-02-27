@@ -4,7 +4,7 @@ public class Node {
     boolean isExit;
     int xIndex, yIndex, zIndex;
     boolean north, east, south, west, up, down, danger;
-    boolean visited;
+    // boolean visited;/////
 
     public Node(String connections, int xIndex, int yIndex, int zIndex) {
         this.north = connections.charAt(0) == 'O';
@@ -20,7 +20,7 @@ public class Node {
         this.zIndex = zIndex;
 
         this.isExit = false;
-        this.visited = false;
+        // this.visited = false;/////
 
         this.id = nodesCount;
         nodesCount += 1;

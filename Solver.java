@@ -5,24 +5,41 @@
     pero es libre de crear otros metodos y clases en este u otro archivo que desee.
 */
 import java.util.*;
+import java.util.concurrent.*;
+import java.util.LinkedList;
 
 public class Solver {
 
     Maze mapita;
+    private boolean visited;///////
+
+    LinkedList<Node> rutas;
 
     public Solver() {
         // Sientase libre de implementar el contructor de la forma que usted lo desee
 
         try {
-            mapita = new Maze("C:\\Users\\Usuario\\Desktop\\proyectoinfo3\\info3repositorio\\tests\\test-3.txt");
+            mapita = new Maze("C:\\Users\\Usuario\\Desktop\\proyectoinfo3\\info3repositorio\\tests\\test-7.txt");
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
+        rutas = new LinkedList<Node>();
+
     }
 
-    public String solve(Node nuevoActual) {
+    /////////////
+    public boolean isVisited() {
+        return visited;
+    }
+
+    public void setVisited(boolean visited) {
+        this.visited = visited;
+    }
+    //////////////////////
+
+    public String solve(Node nuevoActual, LinkedList opcionesRutas) {
         // Implemente su metodo aqui. Sientase libre de implementar métodos adicionales
 
         /**
@@ -41,11 +58,28 @@ public class Solver {
          * System.out.print(result);
          * }
          */
+        /// ---------------
+
         if (nuevoActual == null) {
             nuevoActual = mapita.getStartingSpace();
 
         }
-        nuevoActual.visited = true;
+
+        if(opcionesRutas.isEmpty()){
+            opcionesRutas.add(nuevoActual);
+        }
+        else if(!opcionesRutas.isEmpty()){
+            opcionesRutas.remove();   
+        }
+
+        
+
+        // --------boolean visitados;//
+        ///////
+
+        // ----visitados = true;// ------
+
+
 
         String direccion;
         Node actual;
@@ -55,8 +89,9 @@ public class Solver {
         Node nodoEste = mapita.moveEast(nuevoActual);
         Node nodoArriba = mapita.moveUp(nuevoActual);
         Node nodoAbajo = mapita.moveDown(nuevoActual);
+        ///////////////////////////
 
-        if (nuevoActual != nodoNor && !nodoNor.visited && !nodoNor.danger) {
+        if (nuevoActual != nodoNor && !nodoNor.danger && ) {
             direccion = "N,";
             actual = nodoNor;
         } else if (nuevoActual != nodoSur && !nodoSur.visited && !nodoSur.danger) {
@@ -79,13 +114,17 @@ public class Solver {
             actual = nuevoActual;
         }
 
-        if (actual.isExit) {
-            return direccion;
-        } else if (actual == nuevoActual) {
-            return "sin salida";
-        } else {
-            return direccion + this.solve(actual);
+        while (!actual.visited) {
+            if (actual.isExit) {
+                return direccion;
+            } else if (actual == nuevoActual) {
+                return "sin salida";
+            } else {
+                return direccion + this.solve(actual);
+            }
+
         }
+        return direccion;
 
     }
 
