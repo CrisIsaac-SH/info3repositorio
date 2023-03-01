@@ -65,21 +65,22 @@ public class Solver {
 
         }
 
-        if(opcionesRutas.isEmpty()){
-            opcionesRutas.add(nuevoActual);
-        }
-        else if(!opcionesRutas.isEmpty()){
-            opcionesRutas.remove();   
-        }
+        try {
+            if (opcionesRutas.isEmpty()) {
+                opcionesRutas.add(nuevoActual);
+            } else if (!opcionesRutas.isEmpty()) {
+                opcionesRutas.remove();
+            }
 
-        
+        } catch (Exception x) {
+            // TODO: handle exception
+            x.printStackTrace();
+        }
 
         // --------boolean visitados;//
         ///////
 
         // ----visitados = true;// ------
-
-
 
         String direccion;
         Node actual;
@@ -91,47 +92,42 @@ public class Solver {
         Node nodoAbajo = mapita.moveDown(nuevoActual);
         ///////////////////////////
 
-        if (nuevoActual != nodoNor && !nodoNor.danger && ) {
+        if (nuevoActual != nodoNor && !nodoNor.danger && opcionesRutas.contains(nodoNor)) {
             direccion = "N,";
             actual = nodoNor;
-        } else if (nuevoActual != nodoSur && !nodoSur.visited && !nodoSur.danger) {
+        } else if (nuevoActual != nodoSur && !nodoSur.danger && opcionesRutas.contains(nodoSur)) {
             direccion = "S,";
             actual = nodoSur;
-        } else if (nuevoActual != nodoOeste && !nodoOeste.visited && !nodoOeste.danger) {
+        } else if (nuevoActual != nodoOeste && !nodoOeste.danger && opcionesRutas.contains(nodoOeste)) {
             direccion = "O,";
             actual = nodoOeste;
-        } else if (nuevoActual != nodoEste && !nodoEste.visited && !nodoEste.danger) {
+        } else if (nuevoActual != nodoEste && !nodoEste.danger && opcionesRutas.contains(nodoEste)) {
             direccion = "E,";
             actual = nodoEste;
-        } else if (nuevoActual != nodoArriba && !nodoArriba.visited && !nodoArriba.danger) {
+        } else if (nuevoActual != nodoArriba && !nodoArriba.danger && opcionesRutas.contains(nodoArriba)) {
             direccion = "U,";
             actual = nodoArriba;
-        } else if (nuevoActual != nodoAbajo && !nodoAbajo.visited && !nodoAbajo.danger) {
+        } else if (nuevoActual != nodoAbajo && !nodoAbajo.danger && opcionesRutas.contains(nodoAbajo)) {
             direccion = "D,";
             actual = nodoAbajo;
         } else {
             direccion = "[-1]";
             actual = nuevoActual;
         }
-
-        while (!actual.visited) {
-            if (actual.isExit) {
-                return direccion;
-            } else if (actual == nuevoActual) {
-                return "sin salida";
-            } else {
-                return direccion + this.solve(actual);
-            }
-
+        if (actual.isExit) {
+            return direccion;
+        } else if (actual == nuevoActual) {
+            return "sin salida";
+        } else {
+            return direccion + this.solve(actual, rutas);
         }
-        return direccion;
 
     }
 
     public static void main(String[] args) {
         Solver prueba = new Solver();
 
-        String result = prueba.solve(null);
+        String result = prueba.solve(null, null);
         System.out.print(result);
     }
 
