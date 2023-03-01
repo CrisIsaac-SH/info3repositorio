@@ -19,7 +19,7 @@ public class Solver {
         // Sientase libre de implementar el contructor de la forma que usted lo desee
 
         try {
-            mapita = new Maze("C:\\Users\\Usuario\\Desktop\\proyectoinfo3\\info3repositorio\\tests\\test-7.txt");
+            mapita = new Maze("C:\\Users\\Usuario\\Desktop\\proyectoinfo3\\info3repositorio\\tests\\test-1.txt");
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -92,22 +92,22 @@ public class Solver {
         Node nodoAbajo = mapita.moveDown(nuevoActual);
         ///////////////////////////
 
-        if (nuevoActual != nodoNor && !nodoNor.danger && opcionesRutas.contains(nodoNor)) {
+        if (nuevoActual != nodoNor && !nodoNor.danger && opcionesRutas.contains(nodoNor) && visited) {
             direccion = "N,";
             actual = nodoNor;
-        } else if (nuevoActual != nodoSur && !nodoSur.danger && opcionesRutas.contains(nodoSur)) {
+        } else if (nuevoActual != nodoSur && !nodoSur.danger && visited) {
             direccion = "S,";
             actual = nodoSur;
-        } else if (nuevoActual != nodoOeste && !nodoOeste.danger && opcionesRutas.contains(nodoOeste)) {
+        } else if (nuevoActual != nodoOeste && !nodoOeste.danger && opcionesRutas.contains(nodoOeste) && visited) {
             direccion = "O,";
             actual = nodoOeste;
-        } else if (nuevoActual != nodoEste && !nodoEste.danger && opcionesRutas.contains(nodoEste)) {
+        } else if (nuevoActual != nodoEste && !nodoEste.danger && visited) {
             direccion = "E,";
             actual = nodoEste;
-        } else if (nuevoActual != nodoArriba && !nodoArriba.danger && opcionesRutas.contains(nodoArriba)) {
+        } else if (nuevoActual != nodoArriba && !nodoArriba.danger && opcionesRutas.contains(nodoArriba) && visited) {
             direccion = "U,";
             actual = nodoArriba;
-        } else if (nuevoActual != nodoAbajo && !nodoAbajo.danger && opcionesRutas.contains(nodoAbajo)) {
+        } else if (nuevoActual != nodoAbajo && !nodoAbajo.danger && opcionesRutas.contains(nodoAbajo) && visited) {
             direccion = "D,";
             actual = nodoAbajo;
         } else {
