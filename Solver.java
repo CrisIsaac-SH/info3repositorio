@@ -4,42 +4,28 @@
     public String[] solve(Maze maze)
     pero es libre de crear otros metodos y clases en este u otro archivo que desee.
 */
-import java.util.*;
-import java.util.concurrent.*;
-import java.util.LinkedList;
 
 public class Solver {
 
     Maze mapita;
-    private boolean visited;///////
-
-    LinkedList<Node> rutas;
 
     public Solver() {
         // Sientase libre de implementar el contructor de la forma que usted lo desee
 
         try {
-            mapita = new Maze("C:\\Users\\Usuario\\Desktop\\proyectoinfo3\\info3repositorio\\tests\\test-1.txt");
+            mapita = new Maze("C:\\Users\\Usuario\\Desktop\\proyectoinfo3\\info3repositorio\\tests\\test-3.txt");
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
-        rutas = new LinkedList<Node>();
-
     }
 
     /////////////
-    public boolean isVisited() {
-        return visited;
-    }
 
-    public void setVisited(boolean visited) {
-        this.visited = visited;
-    }
     //////////////////////
 
-    public String solve(Node nuevoActual, LinkedList opcionesRutas) {
+    public String solve(Node nuevoActual) {
         // Implemente su metodo aqui. Sientase libre de implementar métodos adicionales
 
         /**
@@ -65,18 +51,6 @@ public class Solver {
 
         }
 
-        try {
-            if (opcionesRutas.isEmpty()) {
-                opcionesRutas.add(nuevoActual);
-            } else if (!opcionesRutas.isEmpty()) {
-                opcionesRutas.remove();
-            }
-
-        } catch (Exception x) {
-            // TODO: handle exception
-            x.printStackTrace();
-        }
-
         // --------boolean visitados;//
         ///////
 
@@ -92,34 +66,35 @@ public class Solver {
         Node nodoAbajo = mapita.moveDown(nuevoActual);
         ///////////////////////////
 
-        if (nuevoActual != nodoNor && !nodoNor.danger && opcionesRutas.contains(nodoNor) && visited) {
+        if (nuevoActual != nodoNor && !nodoNor.danger && !nuevoActual.visited && !nodoNor.visited) {
             direccion = "N,";
             actual = nodoNor;
-        } else if (nuevoActual != nodoSur && !nodoSur.danger && visited) {
+        } else if (nuevoActual != nodoSur && !nodoSur.danger && !nuevoActual.visited && !nodoSur.visited) {
             direccion = "S,";
             actual = nodoSur;
-        } else if (nuevoActual != nodoOeste && !nodoOeste.danger && opcionesRutas.contains(nodoOeste) && visited) {
+        } else if (nuevoActual != nodoOeste && !nodoOeste.danger && !nuevoActual.visited && !nodoOeste.visited) {
             direccion = "O,";
             actual = nodoOeste;
-        } else if (nuevoActual != nodoEste && !nodoEste.danger && visited) {
+        } else if (nuevoActual != nodoEste && !nodoEste.danger && !nuevoActual.visited && !nodoEste.visited) {
             direccion = "E,";
             actual = nodoEste;
-        } else if (nuevoActual != nodoArriba && !nodoArriba.danger && opcionesRutas.contains(nodoArriba) && visited) {
+        } else if (nuevoActual != nodoArriba && !nodoArriba.danger && !nuevoActual.visited && !nodoArriba.visited) {
             direccion = "U,";
             actual = nodoArriba;
-        } else if (nuevoActual != nodoAbajo && !nodoAbajo.danger && opcionesRutas.contains(nodoAbajo) && visited) {
+        } else if (nuevoActual != nodoAbajo && !nodoAbajo.danger && !nuevoActual.visited && !nodoAbajo.visited) {
             direccion = "D,";
             actual = nodoAbajo;
         } else {
             direccion = "[-1]";
             actual = nuevoActual;
         }
+
         if (actual.isExit) {
             return direccion;
         } else if (actual == nuevoActual) {
             return "sin salida";
         } else {
-            return direccion + this.solve(actual, rutas);
+            return direccion + this.solve(actual);
         }
 
     }
@@ -127,7 +102,7 @@ public class Solver {
     public static void main(String[] args) {
         Solver prueba = new Solver();
 
-        String result = prueba.solve(null, null);
+        String result = prueba.solve(null);
         System.out.print(result);
     }
 
