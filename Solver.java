@@ -13,7 +13,7 @@ public class Solver {
         // Sientase libre de implementar el contructor de la forma que usted lo desee
 
         try {
-            mapita = new Maze("C:\\Users\\Usuario\\Desktop\\proyectoinfo3\\info3repositorio\\tests\\test-3.txt");
+            mapita = new Maze("C:\\Users\\Usuario\\Desktop\\proyectoinfo3\\info3repositorio\\tests\\test-7.txt");
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -50,6 +50,7 @@ public class Solver {
             nuevoActual = mapita.getStartingSpace();
 
         }
+        nuevoActual.visited = true;
 
         // --------boolean visitados;//
         ///////
@@ -66,22 +67,22 @@ public class Solver {
         Node nodoAbajo = mapita.moveDown(nuevoActual);
         ///////////////////////////
 
-        if (nuevoActual != nodoNor && !nodoNor.danger && !nuevoActual.visited && !nodoNor.visited) {
+        if (nuevoActual != nodoNor && !nodoNor.danger && !nodoNor.visited) {
             direccion = "N,";
             actual = nodoNor;
-        } else if (nuevoActual != nodoSur && !nodoSur.danger && !nuevoActual.visited && !nodoSur.visited) {
+        } else if (nuevoActual != nodoSur && !nodoSur.danger && !nodoSur.visited) {
             direccion = "S,";
             actual = nodoSur;
-        } else if (nuevoActual != nodoOeste && !nodoOeste.danger && !nuevoActual.visited && !nodoOeste.visited) {
+        } else if (nuevoActual != nodoOeste && !nodoOeste.danger && !nodoOeste.visited) {
             direccion = "O,";
             actual = nodoOeste;
-        } else if (nuevoActual != nodoEste && !nodoEste.danger && !nuevoActual.visited && !nodoEste.visited) {
+        } else if (nuevoActual != nodoEste && !nodoEste.danger && !nodoEste.visited) {
             direccion = "E,";
             actual = nodoEste;
-        } else if (nuevoActual != nodoArriba && !nodoArriba.danger && !nuevoActual.visited && !nodoArriba.visited) {
+        } else if (nuevoActual != nodoArriba && !nodoArriba.danger && !nodoArriba.visited) {
             direccion = "U,";
             actual = nodoArriba;
-        } else if (nuevoActual != nodoAbajo && !nodoAbajo.danger && !nuevoActual.visited && !nodoAbajo.visited) {
+        } else if (nuevoActual != nodoAbajo && !nodoAbajo.danger && !nodoAbajo.visited) {
             direccion = "D,";
             actual = nodoAbajo;
         } else {
